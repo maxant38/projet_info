@@ -1,5 +1,6 @@
 package com.emse.spring.faircorp.dto;
 
+import com.emse.spring.faircorp.model.Room;
 import com.emse.spring.faircorp.model.Window;
 import com.emse.spring.faircorp.model.WindowStatus;
 
@@ -21,14 +22,17 @@ public class WindowDto {
             this.roomId = window.getRoom().getId();
         }
 
-        public Long getId() {
+    public WindowDto(Room room) {
+    }
+
+
+    public Long getId() {
             return id;
         }
 
         public void setId(Long id) {
             this.id = id;
         }
-
 
 
         public void setName(String name) {
@@ -50,7 +54,6 @@ public class WindowDto {
         public String getRoomName() {
             return roomName;
         }
-
 
 
         public void setRoomName(String roomName) {
