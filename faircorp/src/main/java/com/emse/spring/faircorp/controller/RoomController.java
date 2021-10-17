@@ -34,8 +34,8 @@ public class RoomController {
     }
 
     @GetMapping
-    public List<WindowDto> findAll() {
-        return roomDao.findAll().stream().map(WindowDto::new).collect(Collectors.toList());  // (6)
+    public List<RoomDto> findAll() {
+        return roomDao.findAll().stream().map(RoomDto::new).collect(Collectors.toList());  // (6)
     }
 
     @PostMapping // (8)
@@ -54,13 +54,15 @@ public class RoomController {
     }
 
     @GetMapping(path = "/{id}")
-    public WindowDto findById(@PathVariable Long id) {
-        return roomDao.findById(id).map(WindowDto::new).orElse(null);
+    public RoomDto findById(@PathVariable Long id) {
+        return roomDao.findById(id).map(RoomDto::new).orElse(null);
     }
 
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Long id) {
         roomDao.deleteById(id);
+
+
     }
 
 

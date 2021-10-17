@@ -24,6 +24,7 @@ public class RoomDto {
         this.buildingId = room.getBuilding().getId();
     }
 
+    public RoomDto(Building building){}
 
     public Long getId() {
         return id;
@@ -65,5 +66,6 @@ public class RoomDto {
         this.targetTemperature = targetTemperature;
     }
     public Long getBuildingId() { return buildingId; }
+    public void setBuidldingId() {this.buildingId= buildingId;}
 
 }
