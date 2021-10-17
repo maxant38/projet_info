@@ -5,6 +5,7 @@ import com.emse.spring.faircorp.dao.BuildingDao;
 import com.emse.spring.faircorp.dao.HeaterDao;
 import com.emse.spring.faircorp.dao.RoomDao;
 import com.emse.spring.faircorp.dao.WindowDao;
+import com.emse.spring.faircorp.dto.HeaterDto;
 import com.emse.spring.faircorp.dto.RoomDto;
 import com.emse.spring.faircorp.dto.WindowDto;
 import com.emse.spring.faircorp.model.*;
@@ -23,7 +24,6 @@ public class RoomController {
     private final BuildingDao buildingDao;
     private final WindowDao windowDao;
     private final HeaterDao heaterDao;
-
 
 
     public RoomController(BuildingDao buildingDao, RoomDao roomDao, WindowDao windowDao, HeaterDao heaterDao) {
@@ -46,8 +46,7 @@ public class RoomController {
         // On creation id is not defined
         if (dto.getId() == null) {
             room = roomDao.save(new Room(dto.getFloor(), dto.getName(), building));
-        }
-        else {
+        } else {
             room = roomDao.getById(dto.getId());  // (9)
         }
         return new RoomDto(room);
@@ -65,26 +64,20 @@ public class RoomController {
 
     }
 
-
     @PutMapping(path = "/{id}/switchWindow")
-    public WindowDto switchStatus(@PathVariable Long id) {
+    public WindowDto switchWindows(@PathVariable Long id) {
         Window window = windowDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        window.setWindowStatus(window.getWindowStatus() == WindowStatus.OPEN ? WindowStatus.CLOSED: WindowStatus.OPEN);
+        window.setWindowStatus(window.getWindowStatus() == WindowStatus.OPEN ? WindowStatus.CLOSED : WindowStatus.OPEN);
         return new WindowDto(window);
     }
 
-}
 
+    @PutMapping(path = "/{id}/switchHeaters")
 
-/*
-En attendant d'avoir le heaterDto on le commente
-
-@PutMapping(path = "/{id}/switchHeaters")
-
-    public HeaterDto switchStatus(@PathVariable Long id) {
+    public HeaterDto switchHeaters(@PathVariable Long id) {
         Heater heater = heaterDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        heater.setHeaterStatus(heater.getHeaterStatus() == HeaterStatus.ON ? HeaterStatus.OFF: HeaterStatus.ON);
+        heater.setHeaterStatus(heater.getHeaterStatus() == HeaterStatus.ON ? HeaterStatus.OFF : HeaterStatus.ON);
         return new HeaterDto(heater);
     }
 
-*/
+}
