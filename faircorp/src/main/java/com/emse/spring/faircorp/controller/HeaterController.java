@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @RestController // (1)
 @RequestMapping("/api/heaters") // (2)
 @Transactional // (3)
@@ -50,11 +51,12 @@ public class HeaterController {
         Heater heater = null;
         // On creation id is not defined
         if (dto.getId() == null) {
-           heater = heaterDao.save(new Heater(room, dto.getName(), dto.getHeaterStatus()));
+           heater = heaterDao.save(new Heater(dto.getName(), room, dto.getHeaterStatus(),dto.getPower()));
         }
         else {
             heater = heaterDao.getById(dto.getId());  // (9)
             heater.setHeaterStatus(dto.getHeaterStatus());
+            heater.setPower(dto.getPower());
         }
         return new HeaterDto(heater);
     }

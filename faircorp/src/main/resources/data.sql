@@ -6,8 +6,8 @@ INSERT INTO ROOM(id, name, floor, current_temperature, target_temperature, build
 INSERT INTO HEATER(id, heater_status, name, power, room_id) VALUES(-10, 'ON', 'Heater1', 2000, -10);
 INSERT INTO HEATER(id, heater_status, name, power, room_id) VALUES(-9, 'ON', 'Heater2', null, -10);
 
-INSERT INTO HEATER(id, heater_status, name, power, room_id) VALUES(1, 'ON', 'Heater3', 2000, 10);
-INSERT INTO HEATER(id, heater_status, name, power, room_id) VALUES(2, 'OFF', 'Heater4', null, 10);
+INSERT INTO HEATER(id, heater_status, name, power, room_id) VALUES(100, 'ON', 'Heater3', 2000, 10);
+INSERT INTO HEATER(id, heater_status, name, power, room_id) VALUES(223, 'OFF', 'Heater4', null, 10);
 
 
 INSERT INTO RWINDOW(id, window_status, name, room_id) VALUES(-10, 'CLOSED', 'Window 1', -10);

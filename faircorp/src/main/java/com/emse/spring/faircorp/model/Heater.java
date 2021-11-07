@@ -23,19 +23,20 @@ public class Heater {
     @Enumerated(EnumType.STRING)
     private HeaterStatus heaterStatus;
 
-    public Heater(Long id, String name, Room room, HeaterStatus heaterStatus) {
+    public Heater(Long id, String name, Room room, HeaterStatus heaterStatus, Long power) {
         this.id = id;
         this.name = name;
         this.room = room;
         this.heaterStatus = heaterStatus;
+        this.power =power;
 
     }
 
-    public Heater( Room room,String name, HeaterStatus heaterStatus) {
+    public Heater(String name, Room room, HeaterStatus heaterStatus, Long power) {
         this.name = name;
         this.room = room;
         this.heaterStatus = heaterStatus;
-
+        this.power = power;
     }
 
     public Heater(){}
@@ -48,6 +49,8 @@ public class Heater {
     }
 
     public Room getRoom(){return room;}
+
+    public void setRoom(Room room) {this.room = room;}
 
     public Long getId() {
         return this.id;
@@ -65,5 +68,12 @@ public class Heater {
         this.heaterStatus =heaterStatus;
     }
 
+    public Long getPower() {
+        return this.power;
+    }
+
+    public void setPower(Long id) {
+        this.power = power;
+    }
 
 }
