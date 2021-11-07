@@ -12,8 +12,14 @@ import com.emse.spring.faircorp.model.*;
 import org.hibernate.bytecode.internal.javassist.BulkAccessor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
+
+@RestController // (1)
+@RequestMapping("/api/buildings") // (2)
+@Transactional // (3)
+
 
 public class BuildingController {
 
@@ -54,7 +60,7 @@ public class BuildingController {
 
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Long id) {
-        roomDao.deleteById(id);
+        buildingDao.deleteById(id);
 
     }
 

@@ -1,6 +1,8 @@
 package com.emse.spring.faircorp.dao;
 
+import com.emse.spring.faircorp.model.Heater;
 import com.emse.spring.faircorp.model.Room;
+import com.emse.spring.faircorp.model.Window;
 import com.emse.spring.faircorp.model.WindowStatus;
 
 import javax.persistence.EntityManager;
@@ -19,5 +21,23 @@ public class RoomDaoCustomImpl implements RoomDaoCustom {
                 .setParameter("id", id)
                 .getResultList();
     }
+
+    @Override
+    public List<Heater> findRoomHeaters(Long id) {
+        String jpql="select h from Heater h where h.room.id=:id";
+        return em.createQuery(jpql, Heater.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
+
+    @Override
+    public List<Window> findRoomWindows(Long id) {
+        String jpql="select w from Window w where w.room.id=:id";
+        return em.createQuery(jpql, Window.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
+
+
 
 }

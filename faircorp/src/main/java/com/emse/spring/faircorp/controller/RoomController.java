@@ -38,14 +38,14 @@ public class RoomController {
         return roomDao.findAll().stream().map(RoomDto::new).collect(Collectors.toList());  // (6)
     }
 
-    @PostMapping // (8)
+    @PostMapping // (8)  créer une room
     public RoomDto create(@RequestBody RoomDto dto) {
         // RoomDto must always contain the room building
         Building building = buildingDao.getById(dto.getBuildingId());
         Room room = null;
         // On creation id is not defined
         if (dto.getId() == null) {
-            room = roomDao.save(new Room(dto.getFloor(), dto.getName(), building));
+            room = roomDao.save(new Room(dto.getFloor(), dto.getName(), building, dto.getCurrentTemperature(), dto.getTargetTemperature() ));
         } else {
             room = roomDao.getById(dto.getId());  // (9)
         }
@@ -59,25 +59,34 @@ public class RoomController {
 
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Long id) {
+        heaterDao.deleteHeaterInARoom(id);
+        windowDao.deleteWindowInARoom(id);
         roomDao.deleteById(id);
-
-
     }
 
-    @PutMapping(path = "/{id}/switchWindow")
-    public WindowDto switchWindows(@PathVariable Long id) {
-        Window window = windowDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        window.setWindowStatus(window.getWindowStatus() == WindowStatus.OPEN ? WindowStatus.CLOSED : WindowStatus.OPEN);
-        return new WindowDto(window);
+    @GetMapping(path="/{id}/heaters")
+    public List<HeaterDto> findAllHeaters(@PathVariable Long id) {
+        List<Heater> heaters = roomDao.findRoomHeaters(id);
+        return heaters.stream().map(HeaterDto::new).collect(Collectors.toList());
+    }
+
+    @GetMapping(path="/{id}/windows")
+    public List<WindowDto> findAllWindows(@PathVariable Long id) {
+        List<Window> windows = roomDao.findRoomWindows(id);
+        return windows.stream().map(WindowDto::new).collect(Collectors.toList());
     }
 
 
-    @PutMapping(path = "/{id}/switchHeaters")
+    @GetMapping(path="/{id}/switchWindows")
+    public void switchWindowsStatus(@PathVariable Long id) {
+        List<Window> windows = windowDao.findWindowsInARoom(id);
+        windows.stream().forEach(window -> window.setWindowStatus(window.getWindowStatus() == WindowStatus.OPEN ? WindowStatus.CLOSED: WindowStatus.OPEN));
+    }
 
-    public HeaterDto switchHeaters(@PathVariable Long id) {
-        Heater heater = heaterDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        heater.setHeaterStatus(heater.getHeaterStatus() == HeaterStatus.ON ? HeaterStatus.OFF : HeaterStatus.ON);
-        return new HeaterDto(heater);
+    @GetMapping(path="/{id}/switchHeaters")
+    public void switchHeatersStatus(@PathVariable Long id) {
+        List<Heater> heaters = heaterDao.findHeatersInARoom(id);
+        heaters.stream().forEach(heater -> heater.setHeaterStatus(heater.getHeaterStatus() == HeaterStatus.ON ? HeaterStatus.OFF: HeaterStatus.ON));
     }
 
 }

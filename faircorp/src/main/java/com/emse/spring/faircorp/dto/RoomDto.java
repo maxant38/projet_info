@@ -2,6 +2,8 @@ package com.emse.spring.faircorp.dto;
 
 import com.emse.spring.faircorp.model.*;
 
+import java.util.List;
+
 public class RoomDto {
 
     private Long id;
@@ -10,6 +12,8 @@ public class RoomDto {
     private Double targetTemperature;
     private Integer floor;
     private Long buildingId;
+    private List<WindowDto> windows;
+    private List<HeaterDto> heaters;
 
 
 
@@ -19,12 +23,15 @@ public class RoomDto {
         this.id = room.getId();
         this.name = room.getName();
         this.currentTemperature = room.getCurrentTemperature();
-        this.targetTemperature = room.getCurrentTemperature();
+        this.targetTemperature = room.getTargetTemperature();
         this.floor = room.getFloor();
         this.buildingId = room.getBuilding().getId();
     }
 
+
+
     public RoomDto(Building building){}
+
 
     public Long getId() {
         return id;
