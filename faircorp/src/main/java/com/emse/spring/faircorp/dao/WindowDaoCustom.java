@@ -8,6 +8,7 @@ public interface WindowDaoCustom {
 
         void deleteByRoom(Long id);
         void deleteWindowInARoom(Long id);
+        void deleteWindowInABuilding(Long id);
         List<Window> findRoomOpenWindows(Long id);
         List<Window> findWindowsInARoom(Long id);
 

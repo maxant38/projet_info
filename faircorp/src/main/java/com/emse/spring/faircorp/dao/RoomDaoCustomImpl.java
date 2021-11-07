@@ -38,6 +38,17 @@ public class RoomDaoCustomImpl implements RoomDaoCustom {
                 .getResultList();
     }
 
+    @Override
+    public void deleteRoomInABuilding(Long id) {
+        String jpql = "delete from Room r where r.building.id=:id";
+        em.createQuery(jpql)
+                .setParameter("id", id)
+                .executeUpdate();
+
+
+    }
+
+
 
 
 }

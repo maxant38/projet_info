@@ -61,9 +61,20 @@ public class BuildingController {
 
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Long id) {
+        windowDao.deleteWindowInABuilding(id);
+        heaterDao.deleteHeaterInABuilding(id);
+        roomDao.deleteRoomInABuilding(id);
         buildingDao.deleteById(id);
 
+
     }
+
+    @GetMapping(path="/{id}/rooms")
+    public List<RoomDto> findAllRooms(@PathVariable Long id) {
+        List<Room> rooms= buildingDao.findBuildingRooms(id);
+        return rooms.stream().map(RoomDto::new).collect(Collectors.toList());
+    }
+
 
 
 

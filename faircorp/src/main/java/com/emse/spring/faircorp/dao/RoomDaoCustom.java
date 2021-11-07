@@ -10,4 +10,5 @@ public interface RoomDaoCustom {
     List<Room> findRoom(Long id);
     List<Heater> findRoomHeaters(Long id);
     List<Window> findRoomWindows(Long id);
+    void deleteRoomInABuilding(Long id);
 }

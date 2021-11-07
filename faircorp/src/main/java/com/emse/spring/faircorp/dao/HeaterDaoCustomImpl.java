@@ -33,7 +33,14 @@ public class HeaterDaoCustomImpl implements HeaterDaoCustom {
         em.createQuery(jpql)
                 .setParameter("id", id)
                 .executeUpdate();
+    }
 
+    @Override
+    public void deleteHeaterInABuilding(Long id) {
+        String jpql = "delete h from Heater h where h.room.id=:(from r.id from Room r where r.building.id=:id )";
+        em.createQuery(jpql)
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
 }
