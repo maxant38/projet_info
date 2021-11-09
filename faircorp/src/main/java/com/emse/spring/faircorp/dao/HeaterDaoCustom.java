@@ -5,9 +5,9 @@ import com.emse.spring.faircorp.model.Heater;
 import java.util.List;
 
 public interface HeaterDaoCustom {
-    void deleteHeaterInABuilding( Long id);
+
     void deleteByHeater(Long id);
-    void deleteHeaterInARoom(Long id);
+    void deleteAllHeatersInARoom(Long id);
     List<Heater> findHeatersInARoom(Long id);
 
 

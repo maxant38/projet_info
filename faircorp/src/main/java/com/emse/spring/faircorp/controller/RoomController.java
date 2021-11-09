@@ -60,8 +60,8 @@ public class RoomController {
 
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Long id) {
-        heaterDao.deleteHeaterInARoom(id);
-        windowDao.deleteWindowInARoom(id);
+        heaterDao.deleteAllHeatersInARoom(id);
+        windowDao.deleteAllWindowsInARoom(id);
         roomDao.deleteById(id);
     }
 
