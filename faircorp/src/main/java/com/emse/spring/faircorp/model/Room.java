@@ -47,7 +47,7 @@ public class Room {
         return currentTemperature;
     }
     public Double getTargetTemperature() {
-        return currentTemperature;
+        return targetTemperature;
     }
 
     public String getName() {
@@ -55,6 +55,10 @@ public class Room {
     }
 
     public Set<Window> getWindows() { return windows;}
+
+    public void setTargetTemperature(Double targetTemperature) {
+        this.targetTemperature = targetTemperature;
+    }
 
     public Long getId() {
         return this.id;

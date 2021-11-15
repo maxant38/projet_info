@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin
-@RestController // (1)
-@RequestMapping("/api/rooms") // (2)
-@Transactional // (3)
+@RestController
+@RequestMapping("/api/rooms")
+@Transactional
 public class RoomController {
 
     private final RoomDao roomDao;
@@ -82,6 +82,16 @@ public class RoomController {
     public void switchWindowsStatus(@PathVariable Long id) {
         List<Window> windows = windowDao.findWindowsInARoom(id);
         windows.stream().forEach(window -> window.setWindowStatus(window.getWindowStatus() == WindowStatus.OPEN ? WindowStatus.CLOSED: WindowStatus.OPEN));
+    }
+
+    //Update a room
+    @PutMapping(path = "/{id}")
+    public RoomDto updateTargetTemperature(@PathVariable Long id, @RequestBody RoomDto room) {
+        Room original = roomDao.findById(id).orElseThrow(IllegalArgumentException::new);
+
+        original.setTargetTemperature(room.getTargetTemperature());
+
+        return new RoomDto(original);
     }
 
     @GetMapping(path="/{id}/switchHeaters")
